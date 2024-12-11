@@ -1,8 +1,10 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Home, Building2, UtensilsCrossed, Sofa, Palette, PiggyBank } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Home, Building2, UtensilsCrossed, Sofa, Palette, PiggyBank, X } from 'lucide-react';
 
 const Services = () => {
+  const [selectedService, setSelectedService] = useState(null);
+
   const services = [
     {
       icon: Home,
@@ -79,6 +81,36 @@ const Services = () => {
     }
   ];
 
+  const ServiceCard = ({ service, index }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.2 }}
+      className="relative"
+    >
+      <motion.div
+        whileHover={{ scale: 1.03 }}
+        className="relative h-[400px] rounded-xl overflow-hidden cursor-pointer"
+        onClick={() => setSelectedService(service)}
+      >
+        <img
+          src={service.image}
+          alt={service.title}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="absolute bottom-0 left-0 p-6 text-white">
+          <div className="w-12 h-12 rounded-full bg-[#b08968]/20 flex items-center justify-center mb-4">
+            <service.icon className="w-6 h-6 text-[#b08968]" />
+          </div>
+          <h2 className="text-2xl font-bold">{service.title}</h2>
+          <p className="text-white/80">{service.subtitle}</p>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
@@ -102,8 +134,7 @@ const Services = () => {
             className="text-xl text-white/80 text-center max-w-3xl mx-auto"
           >
             At JK Interior Services, we offer a wide range of services designed to meet your unique
-            requirements. Whether you're looking to revamp your living space, elevate your office, or add
-            finishing touches to your interiors, we have you covered.
+            requirements. Click on any service to learn more.
           </motion.p>
         </div>
       </motion.section>
@@ -111,62 +142,106 @@ const Services = () => {
       {/* Services Grid */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid gap-20">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className={`grid md:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? 'md:flex-row-reverse' : ''
-                }`}
-              >
-                <div className="space-y-6">
-                  <div className="w-16 h-16 rounded-full bg-[#b08968]/20 flex items-center justify-center">
-                    <service.icon className="w-8 h-8 text-[#b08968]" />
-                  </div>
-                  <h2 className="text-3xl font-bold text-white">{service.title}</h2>
-                  <h3 className="text-xl text-[#b08968]">{service.subtitle}</h3>
-                  <p className="text-white/70">{service.description}</p>
-                  <ul className="space-y-3">
-                    {service.features.map((feature, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 }}
-                        className="text-white/70 flex items-center gap-2"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#b08968]" />
-                        {feature}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="relative h-[400px] rounded-xl overflow-hidden"
-                >
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                </motion.div>
-              </motion.div>
+              <ServiceCard key={service.title} service={service} index={index} />
             ))}
           </div>
         </div>
       </section>
+
+      {/* Service Details Modal */}
+      <AnimatePresence>
+        {selectedService && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedService(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-[#1a1a1a] rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative">
+                <motion.img
+                  src={selectedService.image}
+                  alt={selectedService.title}
+                  className="w-full h-[300px] object-cover"
+                  layoutId={`service-image-${selectedService.title}`}
+                />
+                <button
+                  className="absolute top-4 right-4 p-2 bg-black/50 rounded-full"
+                  onClick={() => setSelectedService(null)}
+                >
+                  <X className="w-6 h-6 text-white" />
+                </button>
+              </div>
+              
+              <div className="p-8">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-[#b08968]/20 flex items-center justify-center">
+                    <selectedService.icon className="w-6 h-6 text-[#b08968]" />
+                  </div>
+                  <div>
+                    <motion.h2 
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      className="text-3xl font-bold text-white"
+                    >
+                      {selectedService.title}
+                    </motion.h2>
+                    <motion.p 
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.1 }}
+                      className="text-[#b08968]"
+                    >
+                      {selectedService.subtitle}
+                    </motion.p>
+                  </div>
+                </div>
+
+                <motion.p 
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-white/70 mb-6"
+                >
+                  {selectedService.description}
+                </motion.p>
+
+                <motion.div 
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="space-y-4"
+                >
+                  <h3 className="text-xl font-semibold text-white mb-4">Key Features:</h3>
+                  {selectedService.features.map((feature, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.4 + i * 0.1 }}
+                      className="flex items-center gap-3 text-white/70"
+                    >
+                      <span className="w-2 h-2 rounded-full bg-[#b08968]" />
+                      {feature}
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
 export default Services;
-
-
-  

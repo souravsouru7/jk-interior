@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import logo from '../assest/logo.png'; // Update path according to your project structure
+import logo from '../assest/logo.jpg'; // Update path according to your project structure
 
 const LoadingAnimation = ({ onComplete }) => {
   return (

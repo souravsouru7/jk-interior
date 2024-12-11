@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../assest/logo.png';
+import logo from '../assest/logo.jpg';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,7 +11,7 @@ const Header = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'Services', path: '/services' }, // Add this line
+    { name: 'Services', path: '/services' }, 
     { name: 'Factory', path: '/factory' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' }
