@@ -30,18 +30,34 @@ const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-black/80 backdrop-blur-md py-4' : 'bg-transparent py-6'
+        isScrolled ? 'bg-black/80 backdrop-blur-md py-2' : 'bg-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center">
-          {/* Logo */}
+          {/* Updated Logo Section */}
           <Link to="/">
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
               className="flex items-center"
             >
-              <img src={logo} alt="JK Interiors" className="h-14 w-auto" />
+              <img 
+                src={logo} 
+                alt="JK Interiors" 
+                className="h-12 w-auto object-contain rounded-md" 
+                style={{
+                  filter: isScrolled ? 'brightness(1.2)' : 'brightness(1)',
+                  transition: 'filter 0.3s ease'
+                }}
+              />
+              <motion.span 
+                className={`ml-3 font-semibold text-xl ${
+                  isScrolled ? 'text-white' : 'text-[#b08968]'
+                }`}
+              >
+                JK Interiors
+              </motion.span>
             </motion.div>
           </Link>
 

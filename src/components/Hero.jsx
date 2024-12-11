@@ -1,19 +1,25 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, MousePointer } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
-    <section className="min-h-screen relative flex items-center">
-      {/* Main Background */}
+    <section className="min-h-screen relative flex items-center justify-center py-20">
+      {/* Main Background - updated animation */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           initial={{ scale: 1.2 }}
           animate={{ 
             scale: [1.2, 1, 1.1],
-            filter: ["brightness(1)", "brightness(1.2)", "brightness(1)"]
+            filter: ["brightness(0.8)", "brightness(1)", "brightness(0.9)"]
           }}
-          transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
+          transition={{ 
+            duration: 30, 
+            repeat: Infinity, 
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
           className="w-full h-full"
           style={{
             backgroundImage: 'url("https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000")',
@@ -21,23 +27,40 @@ const Hero = () => {
             backgroundPosition: 'center'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Content - updated spacing and animations */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
-          <div className="space-y-8">
+          <div className="space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="space-y-6"
+              transition={{ 
+                duration: 0.8,
+                type: "spring",
+                stiffness: 100
+              }}
+              className="space-y-8"
             >
-              <h1 className="text-7xl font-bold text-white leading-tight">
-                Welcome to
-                <span className="block text-[#b08968]">JK Interior Services</span>
+              <h1 className="text-6xl md:text-7xl font-bold text-white leading-tight">
+                <motion.span
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  Welcome to
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="block text-[#b08968] mt-2"
+                >
+                  JK Interiors
+                </motion.span>
               </h1>
               
               <motion.h2
@@ -115,71 +138,154 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Right Side Gallery */}
+          {/* Right Side Service Links */}
           <div className="hidden lg:block relative">
-            <div className="grid grid-cols-2 gap-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="space-y-4"
-              >
-                <motion.img
-                  whileHover={{ scale: 1.05 }}
-                  src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=400"
-                  alt="Interior Design"
-                  className="rounded-lg shadow-2xl w-full h-48 object-cover"
-                />
-                <motion.img
-                  whileHover={{ scale: 1.05 }}
-                  src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=400"
-                  alt="Interior Design"
-                  className="rounded-lg shadow-2xl w-full h-64 object-cover"
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-                className="space-y-4 pt-8"
-              >
-                <motion.img
-                  whileHover={{ scale: 1.05 }}
-                  src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=400"
-                  alt="Interior Design"
-                  className="rounded-lg shadow-2xl w-full h-64 object-cover"
-                />
-                <motion.img
-                  whileHover={{ scale: 1.05 }}
-                  src="https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=400"
-                  alt="Interior Design"
-                  className="rounded-lg shadow-2xl w-full h-48 object-cover"
-                />
-              </motion.div>
-            </div>
-
-            {/* Floating Card */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.2 }}
-              className="absolute -bottom-10 -left-10 bg-[#b08968] p-6 rounded-xl shadow-xl max-w-xs"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="grid grid-cols-2 gap-6"
             >
-              <h3 className="text-white font-bold text-xl mb-2">Latest Project</h3>
-              <p className="text-white/80">Modern Minimalist Villa in Downtown</p>
+              <Link to="/services#residential">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="space-y-6"
+                >
+                  <motion.div
+                    whileHover={{ 
+                      scale: 1.05,
+                      boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.4)"
+                    }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="relative group"
+                  >
+                    <img
+                      src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=400"
+                      alt="Residential Design"
+                      className="rounded-lg shadow-2xl w-full h-56 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors rounded-lg flex items-center justify-center">
+                      <h3 className="text-white text-xl font-bold">Residential Design</h3>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </Link>
+
+              <Link to="/services#commercial">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="relative group"
+                >
+                  <motion.div
+                    whileHover={{ 
+                      scale: 1.05,
+                      boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.4)"
+                    }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <img
+                      src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=400"
+                      alt="Commercial Design"
+                      className="rounded-lg shadow-2xl w-full h-56 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors rounded-lg flex items-center justify-center">
+                      <h3 className="text-white text-xl font-bold">Commercial Design</h3>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </Link>
+
+              <Link to="/services#modular-kitchen">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="relative group"
+                >
+                  <motion.div
+                    whileHover={{ 
+                      scale: 1.05,
+                      boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.4)"
+                    }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <img
+                      src="https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=400"
+                      alt="Modular Kitchen"
+                      className="rounded-lg shadow-2xl w-full h-56 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors rounded-lg flex items-center justify-center">
+                      <h3 className="text-white text-xl font-bold">Modular Kitchen</h3>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </Link>
+
+              <Link to="/services#interior-styling">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.0 }}
+                  className="relative group"
+                >
+                  <motion.div
+                    whileHover={{ 
+                      scale: 1.05,
+                      boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.4)"
+                    }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <img
+                      src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=400"
+                      alt="Interior Styling"
+                      className="rounded-lg shadow-2xl w-full h-56 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors rounded-lg flex items-center justify-center">
+                      <h3 className="text-white text-xl font-bold">Interior Styling</h3>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </Link>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Enhanced Scroll Indicator */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white flex flex-col items-center gap-2"
       >
-        <span className="text-sm">Scroll to explore</span>
-        <MousePointer className="w-5 h-5" />
+        <motion.span
+          animate={{ y: [0, 10, 0] }}
+          transition={{ 
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="text-sm font-light tracking-wider"
+        >
+          Scroll to explore
+        </motion.span>
+        <motion.div
+          animate={{ 
+            y: [0, 10, 0],
+            opacity: [1, 0.5, 1]
+          }}
+          transition={{ 
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <MousePointer className="w-5 h-5" />
+        </motion.div>
       </motion.div>
     </section>
   );
