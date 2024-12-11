@@ -174,19 +174,6 @@ const Services = () => {
             className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedService(null)}
           >
-            <button
-              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors z-[60]"
-              onClick={handlePrevService}
-            >
-              <ChevronLeft className="w-8 h-8 text-white" />
-            </button>
-            <button
-              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors z-[60]"
-              onClick={handleNextService}
-            >
-              <ChevronRight className="w-8 h-8 text-white" />
-            </button>
-
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -194,13 +181,29 @@ const Services = () => {
               className="bg-[#1a1a1a] rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative">
+              <div className="relative group">
                 <motion.img
                   src={selectedService.image}
                   alt={selectedService.title}
                   className="w-full h-[300px] object-cover"
                   layoutId={`service-image-${selectedService.title}`}
                 />
+                {/* Previous Service Navigation */}
+                <button
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100"
+                  onClick={handlePrevService}
+                >
+                  <ChevronLeft className="w-8 h-8 text-white" />
+                </button>
+                
+                {/* Next Service Navigation */}
+                <button
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100"
+                  onClick={handleNextService}
+                >
+                  <ChevronRight className="w-8 h-8 text-white" />
+                </button>
+
                 <button
                   className="absolute top-4 right-4 p-2 bg-black/50 rounded-full"
                   onClick={() => setSelectedService(null)}
