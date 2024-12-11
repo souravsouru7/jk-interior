@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import JKInteriors from './components/JKInteriors';
 import About from './components/About';
 import Services from './components/Services';
+import Philosophy from './components/Philosophy';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<JKInteriors />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/philosophy" element={<Philosophy />} />
           </Routes>
         </main>
         <Footer />
