@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Building2, UtensilsCrossed, Sofa, Palette, PiggyBank, X } from 'lucide-react';
+import { Home, Building2, UtensilsCrossed, Sofa, Palette, PiggyBank, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
+
+  const handlePrevService = (e) => {
+    e.stopPropagation();
+    const currentIndex = services.findIndex(service => service.title === selectedService.title);
+    const prevIndex = currentIndex === 0 ? services.length - 1 : currentIndex - 1;
+    setSelectedService(services[prevIndex]);
+  };
+
+  const handleNextService = (e) => {
+    e.stopPropagation();
+    const currentIndex = services.findIndex(service => service.title === selectedService.title);
+    const nextIndex = currentIndex === services.length - 1 ? 0 : currentIndex + 1;
+    setSelectedService(services[nextIndex]);
+  };
 
   const services = [
     {
@@ -160,6 +174,19 @@ const Services = () => {
             className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedService(null)}
           >
+            <button
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors z-[60]"
+              onClick={handlePrevService}
+            >
+              <ChevronLeft className="w-8 h-8 text-white" />
+            </button>
+            <button
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors z-[60]"
+              onClick={handleNextService}
+            >
+              <ChevronRight className="w-8 h-8 text-white" />
+            </button>
+
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -214,6 +241,23 @@ const Services = () => {
                 >
                   {selectedService.description}
                 </motion.p>
+
+                <div className="flex justify-between items-center mb-6">
+                  <button
+                    onClick={handlePrevService}
+                    className="flex items-center gap-2 text-[#b08968] hover:text-[#b08968]/80 transition-colors"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                    Previous Service
+                  </button>
+                  <button
+                    onClick={handleNextService}
+                    className="flex items-center gap-2 text-[#b08968] hover:text-[#b08968]/80 transition-colors"
+                  >
+                    Next Service
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
 
                 <motion.div 
                   initial={{ y: 20, opacity: 0 }}
