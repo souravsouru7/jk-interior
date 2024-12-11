@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LoadingAnimation from './LoadingAnimation';
 import Hero from './Hero';
 import Features from './Features';
+import Testimonials from './Testimonials';
 
 const JKInteriors = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,6 +24,7 @@ const JKInteriors = () => {
           <>
             <Hero />
             <Features />
+            <Testimonials />
           </>
         )}
       </AnimatePresence>
