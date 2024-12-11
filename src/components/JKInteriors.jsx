@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Header from './Header';
 import LoadingAnimation from './LoadingAnimation';
 import Hero from './Hero';
 import Features from './Features';
@@ -17,17 +16,12 @@ const JKInteriors = () => {
 
   return (
     <div className="min-h-screen bg-black overflow-hidden">
-      <Header />
-      
       <AnimatePresence mode="wait">
         {isLoading ? (
           <LoadingAnimation onComplete={() => setIsLoading(false)} />
         ) : (
           <>
-            {/* Hero Section */}
             <Hero />
-
-            {/* Features Section */}
             <Features />
           </>
         )}

@@ -36,9 +36,18 @@ const Hero = () => {
               className="space-y-6"
             >
               <h1 className="text-7xl font-bold text-white leading-tight">
-                Modern Design
-                <span className="block text-[#b08968]">Solutions</span>
+                Welcome to
+                <span className="block text-[#b08968]">JK Interior Services</span>
               </h1>
+              
+              <motion.h2
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="text-3xl text-white/90 font-semibold"
+              >
+                Your Dream, Our Design
+              </motion.h2>
               
               <motion.p
                 initial={{ opacity: 0 }}
@@ -46,8 +55,9 @@ const Hero = () => {
                 transition={{ delay: 0.7 }}
                 className="text-xl text-white/80 max-w-xl"
               >
-                Transform your space with our exceptional, custom designs and expert craftsmanship.
-                We bring innovation and luxury to every project.
+                At JK Interior's Studio, we specialize in creating spaces that resonate with your personality and
+                lifestyle. Based in the heart of Hyderabad, our expert team designs interiors that are not only
+                aesthetically appealing but also highly functional.
               </motion.p>
 
               <motion.div

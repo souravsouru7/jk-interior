@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronRight } from 'lucide-react';
-import Logo from '../assest/logo.png';
+import { Link, useLocation } from 'react-router-dom';
+import logo from '../assest/logo.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' }, // Add this line
+    { name: 'Factory', path: '/factory' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,25 +36,29 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center"
-          >
-            <img src={Logo} alt="JK Interiors" className="h-14 w-auto" />
-          </motion.div>
+          <Link to="/">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center"
+            >
+              <img src={logo} alt="JK Interiors" className="h-14 w-auto" />
+            </motion.div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-12">
-            {['Home', 'Portfolio', 'Factory', 'About', 'Contact'].map((item) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-white hover:text-[#b08968] transition-colors text-lg relative group"
-                whileHover={{ scale: 1.1 }}
-              >
-                {item}
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#b08968] transition-all duration-300 group-hover:w-full" />
-              </motion.a>
+            {navItems.map((item) => (
+              <Link key={item.name} to={item.path}>
+                <motion.span
+                  className={`text-white hover:text-[#b08968] transition-colors text-lg relative group ${
+                    location.pathname === item.path ? 'text-[#b08968]' : ''
+                  }`}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  {item.name}
+                  <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#b08968] transition-all duration-300 group-hover:w-full" />
+                </motion.span>
+              </Link>
             ))}
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -75,15 +89,18 @@ const Header = () => {
               className="md:hidden mt-4"
             >
               <nav className="flex flex-col space-y-4">
-                {['Home', 'Portfolio', 'Factory', 'About', 'Contact'].map((item) => (
-                  <motion.a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="text-white hover:text-[#b08968] transition-colors text-lg py-2"
-                    whileHover={{ x: 10 }}
-                  >
-                    {item}
-                  </motion.a>
+                {navItems.map((item) => (
+                  <Link key={item.name} to={item.path}>
+                    <motion.span
+                      className={`block text-white hover:text-[#b08968] transition-colors text-lg py-2 ${
+                        location.pathname === item.path ? 'text-[#b08968]' : ''
+                      }`}
+                      whileHover={{ x: 10 }}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.name}
+                    </motion.span>
+                  </Link>
                 ))}
                 <motion.button
                   whileHover={{ x: 10 }}
