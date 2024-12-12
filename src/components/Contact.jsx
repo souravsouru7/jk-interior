@@ -38,17 +38,36 @@ const Contact = () => {
             </div>
           </div>
 
-          <button
-            onClick={() => setShowForm(true)}
-            className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl hover:bg-white/10 transition-colors"
-          >
+          <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl">
             <h2 className="text-2xl font-semibold text-white mb-6">
               Contact Form
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg mb-8">
               Fill out the form below to get in touch with us.
             </p>
-          </button>
+            <button
+              onClick={() => setShowForm(true)}
+              className="w-full bg-[#b08968] hover:bg-[#967253] text-white py-4 px-6 rounded-xl 
+              font-medium transition-all duration-300 transform hover:scale-[1.02] 
+              flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+            >
+              <span>Open Contact Form</span>
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="h-5 w-5" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M9 5l7 7-7 7" 
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {showForm && <ContactForm onClose={() => setShowForm(false)} />}

@@ -11,6 +11,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { useSwipeable } from "react-swipeable";
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
@@ -238,6 +239,13 @@ const Services = () => {
     );
   };
 
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: handleNextImage,
+    onSwipedRight: handlePrevImage,
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+
   const ServiceCard = ({ service, index }) => (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -331,6 +339,7 @@ const Services = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               className="bg-[#1a1a1a] rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
+              {...swipeHandlers}
             >
               {/* Image Carousel */}
               <div className="relative group">
