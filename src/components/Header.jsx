@@ -12,9 +12,10 @@ const Header = () => {
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' }, 
+    { name: 'Gallery', path: '/gallery' },
     { name: 'Philosophy', path: '/philosophy' },
     { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' }
+   
   ];
 
   useEffect(() => {

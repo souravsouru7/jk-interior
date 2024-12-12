@@ -6,6 +6,7 @@ import JKInteriors from './components/JKInteriors';
 import About from './components/About';
 import Services from './components/Services';
 import Philosophy from './components/Philosophy';
+import Gallery from './components/Gallery';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/philosophy" element={<Philosophy />} />
+            <Route path="/gallery" element={<Gallery />} />
           </Routes>
         </main>
         <Footer />
