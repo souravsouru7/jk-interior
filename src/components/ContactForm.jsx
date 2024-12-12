@@ -4,6 +4,8 @@ import { X } from 'lucide-react';
 
 const ContactForm = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,11 +17,45 @@ const ContactForm = () => {
     setIsOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
-    handleClose();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+  
+    try {
+      // Use Fetch API instead of Axios for better CORS handling
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbxOJCo_lPq6CgduorqQQW2t66KdiI1_hbNJkst2rbOgggdrjmz62VEwnTl5yTYwyKsZ/exec", 
+        {
+          method: 'POST',
+          mode: 'no-cors', // Important for Google Apps Script
+          cache: 'no-cache',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        }
+      );
+
+      console.log("Form submitted");
+      setSubmitStatus('success');
+      
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+      handleClose();
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+      
+      // More detailed error handling
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -66,6 +102,18 @@ const ContactForm = () => {
                   Let's discuss your interior design project
                 </p>
               </div>
+
+              {/* Error or Success Message */}
+              {submitStatus === 'error' && (
+                <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+                  We received your submission, but there might be an issue with confirmation. Please try again or contact us directly.
+                </div>
+              )}
+              {submitStatus === 'success' && (
+                <div className="mb-4 p-3 bg-green-100 text-green-700 rounded">
+                  Thank you for your message! We'll get back to you soon.
+                </div>
+              )}
 
               {/* Contact Form */}
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -132,9 +180,10 @@ const ContactForm = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full py-3 px-4 bg-[#b08968] text-white rounded-md hover:bg-[#97745a] transition-colors duration-200"
+                  disabled={isSubmitting}
+                  className="w-full py-3 px-4 bg-[#b08968] text-white rounded-md hover:bg-[#97745a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </motion.button>
               </form>
             </div>
@@ -145,4 +194,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm; 
+export default ContactForm;
