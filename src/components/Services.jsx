@@ -244,6 +244,7 @@ const Services = () => {
     onSwipedRight: handlePrevImage,
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
+    trackTouch: true,
   });
 
   const ServiceCard = ({ service, index }) => (
@@ -339,26 +340,26 @@ const Services = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               className="bg-[#1a1a1a] rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
-              {...swipeHandlers}
             >
               {/* Image Carousel */}
-              <div className="relative group">
+              <div className="relative group" {...swipeHandlers}>
                 <motion.img
                   src={selectedService.images[currentImageIndex].url}
                   alt={selectedService.images[currentImageIndex].caption}
                   className="w-full h-[400px] object-cover"
+                  draggable="false"
                 />
 
-                {/* Previous Service Navigation */}
+                {/* Navigation buttons - Show only on larger screens */}
                 <button
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100 hidden md:block"
                   onClick={handlePrevImage}
                 >
                   <ChevronLeft className="w-8 h-8 text-white" />
                 </button>
 
                 <button
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 rounded-full hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100 hidden md:block"
                   onClick={handleNextImage}
                 >
                   <ChevronRight className="w-8 h-8 text-white" />
