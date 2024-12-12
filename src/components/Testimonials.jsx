@@ -1,6 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const testimonials = [
   {
@@ -58,21 +62,24 @@ const Testimonials = () => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl font-bold text-white mb-4">What Our Clients Say</h2>
-          <p className="text-white/70 max-w-2xl mx-auto text-lg">
+          <h2 className="text-mobile-h2 sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            What Our Clients Say
+          </h2>
+          <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto">
             At JK Interior Services, our clients' satisfaction is the ultimate measure of our success. 
             Here's what some of them have to say about their experiences with us:
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Desktop View (Hidden on Mobile) */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
@@ -96,13 +103,13 @@ const Testimonials = () => {
               </motion.div>
               
               <motion.h3 
-                className="text-2xl font-bold text-[#b08968] mb-4"
+                className="text-lg sm:text-xl md:text-2xl font-bold text-[#b08968] mb-3"
                 whileHover={{ scale: 1.05 }}
               >
                 {testimonial.quote}
               </motion.h3>
               
-              <p className="text-white/70 mb-6 leading-relaxed">
+              <p className="text-sm sm:text-base text-white/70 mb-4 leading-relaxed">
                 {testimonial.text}
               </p>
               
@@ -113,12 +120,53 @@ const Testimonials = () => {
                   </span>
                 </div>
                 <div>
-                  <p className="font-semibold text-white">{testimonial.author}</p>
-                  <p className="text-sm text-white/50">{testimonial.location}</p>
+                  <p className="text-sm sm:text-base font-semibold text-white">{testimonial.author}</p>
+                  <p className="text-xs sm:text-sm text-white/50">{testimonial.location}</p>
                 </div>
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Mobile View with Swiper */}
+        <div className="md:hidden">
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1}
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 3000 }}
+            className="pb-12" // Add padding for pagination dots
+          >
+            {testimonials.map((testimonial, index) => (
+              <SwiperSlide key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"
+                >
+                  <Quote className="w-8 h-8 text-[#b08968] mb-4" />
+                  <h3 className="text-xl font-bold text-[#b08968] mb-3">
+                    {testimonial.quote}
+                  </h3>
+                  <p className="text-white/70 mb-4 text-sm leading-relaxed">
+                    {testimonial.text}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-[#b08968]/20 flex items-center justify-center">
+                      <span className="text-[#b08968] font-bold text-sm">
+                        {testimonial.author[0]}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white text-sm">{testimonial.author}</p>
+                      <p className="text-xs text-white/50">{testimonial.location}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
         <motion.div

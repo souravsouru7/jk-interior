@@ -57,7 +57,7 @@ const Features = () => {
           className="text-center mb-16"
         >
           <motion.h2 
-            className="text-5xl font-bold text-white mb-4 relative inline-block"
+            className="text-mobile-h2 sm:text-4xl md:text-5xl font-bold text-white mb-4"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -70,7 +70,7 @@ const Features = () => {
             />
           </motion.h2>
           <motion.p 
-            className="text-white/70 max-w-2xl mx-auto text-lg"
+            className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -79,19 +79,14 @@ const Features = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
-              whileHover={{ 
-                y: -15,
-                scale: 1.02,
-                boxShadow: "0 10px 30px -10px rgba(176, 137, 104, 0.3)"
-              }}
-              className="bg-white/5 backdrop-blur-lg rounded-xl p-8 group hover:bg-[#b08968]/10 transition-all duration-500 border border-transparent hover:border-[#b08968]/30"
+              className="bg-white/5 backdrop-blur-lg rounded-xl p-6 sm:p-8 group hover:bg-[#b08968]/10 transition-all duration-500"
             >
               <motion.div
                 whileHover={{ rotate: 360, scale: 1.1 }}
@@ -101,12 +96,12 @@ const Features = () => {
                 <feature.icon className="w-8 h-8 text-[#b08968] group-hover:text-white transition-colors duration-300" />
               </motion.div>
               <motion.h3 
-                className="text-2xl font-bold text-white mb-3 text-center"
+                className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 text-center"
                 whileHover={{ scale: 1.05 }}
               >
                 {feature.title}
               </motion.h3>
-              <p className="text-white/70 text-center leading-relaxed">
+              <p className="text-sm sm:text-base text-white/70 text-center leading-relaxed">
                 {feature.description}
               </p>
             </motion.div>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, MousePointer } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="min-h-screen relative flex items-center justify-center py-20">
       {/* Main Background - updated animation */}
@@ -31,25 +33,22 @@ const Hero = () => {
       </div>
 
       {/* Content - updated spacing and animations */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Content */}
-          <div className="space-y-10">
+          <div className="space-y-6 lg:space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.8,
-                type: "spring",
-                stiffness: 100
-              }}
-              className="space-y-8"
+              transition={{ duration: 0.8 }}
+              className="space-y-6 lg:space-y-8"
             >
-              <h1 className="text-6xl md:text-7xl font-bold text-white leading-tight">
+              <h1 className="text-mobile-h1 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
                 <motion.span
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
+                  className="block text-base sm:text-lg md:text-xl mb-2"
                 >
                   Welcome to
                 </motion.span>
@@ -57,42 +56,28 @@ const Hero = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="block text-[#b08968] mt-2"
+                  className="block text-[#b08968]"
                 >
                   JK Interiors
                 </motion.span>
               </h1>
               
-              <motion.h2
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="text-3xl text-white/90 font-semibold"
-              >
+              <motion.h2 className="text-xl sm:text-2xl md:text-3xl text-white/90 font-semibold">
                 Your Dream, Our Design
               </motion.h2>
               
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                className="text-xl text-white/80 max-w-xl"
-              >
+              <motion.p className="text-base sm:text-lg md:text-xl text-white/80 max-w-xl">
                 At JK Interior's Studio, we specialize in creating spaces that resonate with your personality and
                 lifestyle. Based in the heart of Hyderabad, our expert team designs interiors that are not only
                 aesthetically appealing but also highly functional.
               </motion.p>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.9 }}
-                className="flex gap-4"
-              >
+              <motion.div className="flex flex-col sm:flex-row gap-4">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-[#b08968] text-white rounded-full flex items-center gap-2 group"
+                  onClick={() => navigate('/gallery')}
+                  className="px-6 py-3 sm:px-8 sm:py-4 bg-[#b08968] text-white rounded-full text-sm sm:text-base flex items-center gap-2 group"
                 >
                   View Portfolio
                   <motion.div
@@ -106,6 +91,7 @@ const Hero = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => navigate('/contact')}
                   className="px-8 py-4 border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
                 >
                   Contact Us
@@ -113,14 +99,9 @@ const Hero = () => {
               </motion.div>
 
               {/* Stats */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.1 }}
-                className="grid grid-cols-3 gap-8 pt-8"
-              >
+              <motion.div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-8 pt-8">
                 {[
-                  { number: "10+", label: "Years Experience" },
+                  { number: "02+", label: "Years Experience" },
                   { number: "250+", label: "Projects Completed" },
                   { number: "100%", label: "Client Satisfaction" }
                 ].map((stat, index) => (
