@@ -68,9 +68,9 @@ const Footer = () => {
                 <Mail size={20} />
                 <span>Info.thejkinteriors@gmail.com</span>
               </li>
-              <li className="flex items-center gap-3 text-sm sm:text-base text-gray-400">
-                <MapPin size={20} />
-                <span>Hyderabad, India</span>
+              <li className="flex items-start gap-3 text-sm sm:text-base text-gray-400">
+                <MapPin size={20} className="mt-1 flex-shrink-0" />
+                <span>Spellbound Coworking and Office Spaces, HT Road, Osmania University Teachers Colony, Sainikpuri, Secunderabad, Telangana</span>
               </li>
             </ul>
           </motion.div>
