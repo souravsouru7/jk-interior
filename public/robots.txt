@@ -1,3 +1,35 @@
 # https://www.robotstxt.org/robotstxt.html
+# robots.txt for https://www.thejkinteriors.com/
+
 User-agent: *
-Disallow:
+Allow: /
+Allow: /about
+Allow: /services
+Allow: /portfolio
+Allow: /contact
+Allow: /blog
+Allow: /projects
+Allow: /gallery
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/themes/
+Disallow: /wp-content/uploads/
+Disallow: /wp-json/
+Disallow: /xmlrpc.php
+
+# Allow media files
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.webp$
+Allow: /*.css$
+Allow: /*.js$
+
+# Sitemap
+Sitemap: https://www.thejkinteriors.com/sitemap.xml
