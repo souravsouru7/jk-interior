@@ -49,6 +49,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload hero background image — mobile gets 828px, desktop gets 2000px */}
+        <link
+          rel="preload"
+          as="image"
+          href="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=828"
+          media="(max-width: 768px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000"
+          media="(min-width: 769px)"
+        />
+      </head>
       <body>
         <ScrollToTop />
         <div className="flex min-h-screen flex-col bg-[#ECECEC]">

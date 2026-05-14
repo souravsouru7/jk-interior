@@ -4,13 +4,21 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 
 const FRAME_COUNT = 40;
-const FRAME_PATH = "/4k_wallpapers_enhanced";
 const MAX_CANVAS_WIDTH = 1920;
 const MAX_CANVAS_HEIGHT = 1080;
 const MOBILE_QUERY = "(max-width: 767px)";
 
-function frameSrc(index) {
-  return `${FRAME_PATH}/ezgif-frame-${String(index).padStart(3, "0")}_4k_enhanced.jpg`;
+const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const USE_CLOUDINARY = Boolean(CLOUD && CLOUD !== "your_cloud_name_here");
+
+function frameSrc(index, isMobile = false) {
+  const name = `ezgif-frame-${String(index).padStart(3, "0")}_4k_enhanced`;
+  if (USE_CLOUDINARY) {
+    const w = isMobile ? 900 : 1920;
+    return `https://res.cloudinary.com/${CLOUD}/image/upload/f_auto,q_auto:good,w_${w}/jk-interiors/${name}`;
+  }
+  // fallback to local public files while Cloudinary isn't configured
+  return `/4k_wallpapers_enhanced/${name}.jpg`;
 }
 
 function getCanvasContext(canvas) {
@@ -134,10 +142,10 @@ export default function InteriorScroll() {
   const sceneScale = useTransform(smoothProgress, [0, 0.82, 1], [1.02, 1, 0.985]);
 
   const frameIndex = useTransform(frameProgress, [0, 1], [0, FRAME_COUNT - 1]);
-  const frameUrls = useMemo(
-    () => Array.from({ length: FRAME_COUNT }, (_, index) => frameSrc(index + 1)),
-    []
-  );
+  const frameUrls = useMemo(() => {
+    const isMobile = typeof window !== "undefined" && window.matchMedia(MOBILE_QUERY).matches;
+    return Array.from({ length: FRAME_COUNT }, (_, index) => frameSrc(index + 1, isMobile));
+  }, []);
 
   useEffect(() => {
     let cancelled = false;

@@ -10,6 +10,10 @@
 
 # production
 /build
+/.next
+
+# Cloudinary source frames — served via Cloudinary CDN, not needed in repo or deploy
+/public/4k_wallpapers_enhanced
 
 # misc
 .DS_Store
