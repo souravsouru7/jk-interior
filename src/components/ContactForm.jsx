@@ -1,58 +1,57 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 
 const ContactForm = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setIsVisible(true);
+    }, 8000);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
-  
+
     try {
-      // Use Fetch API instead of Axios for better CORS handling
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbxOJCo_lPq6CgduorqQQW2t66KdiI1_hbNJkst2rbOgggdrjmz62VEwnTl5yTYwyKsZ/exec", 
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbxOJCo_lPq6CgduorqQQW2t66KdiI1_hbNJkst2rbOgggdrjmz62VEwnTl5yTYwyKsZ/exec",
         {
-          method: 'POST',
-          mode: 'no-cors', // Important for Google Apps Script
-          cache: 'no-cache',
+          method: "POST",
+          mode: "no-cors",
+          cache: "no-cache",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(formData),
         }
       );
 
-      console.log("Form submitted");
-      setSubmitStatus('success');
-      
-
+      setSubmitStatus("success");
       setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: ''
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
       });
-      handleClose();
     } catch (error) {
       console.error("Error submitting the form:", error);
-      
-      // More detailed error handling
-      setSubmitStatus('error');
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -60,135 +59,147 @@ const ContactForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   return (
     <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center" style={{ zIndex: 99999 }}>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={handleClose}
-          />
+      {isVisible && (
+        <motion.section
+          id="contact"
+          initial={{ opacity: 0, y: 42 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 42 }}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+          className="bg-[#ECECEC] text-neutral-950"
+        >
+          <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20 lg:py-32">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#8a6a50]">
+            Start A Project
+          </p>
+          <h2 className="mt-5 max-w-[12ch] text-[clamp(3rem,7vw,6.2rem)] font-semibold leading-[0.9] tracking-tight">
+            Let us shape the next room.
+          </h2>
+          <p className="mt-7 max-w-lg text-lg leading-8 text-neutral-700">
+            Share your site, budget range, and the kind of life you want the space to support.
+            We will respond with the next practical step.
+          </p>
 
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="relative w-full max-w-md mx-4"
-          >
-            <div className="bg-white rounded-lg shadow-2xl p-6">
-              {/* Close Button */}
-              <button
-                onClick={handleClose}
-                className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
-              >
-                <X className="w-5 h-5" />
-              </button>
+          <div className="mt-10 space-y-5 border-t border-neutral-300 pt-8">
+            <a href="tel:+919063096060" className="flex items-center gap-4 text-neutral-700 hover:text-[#8a6a50]">
+              <Phone className="h-5 w-5" /> +91 9063096060
+            </a>
+            <a
+              href="mailto:Info.thejkinteriors@gmail.com"
+              className="flex items-center gap-4 text-neutral-700 hover:text-[#8a6a50]"
+            >
+              <Mail className="h-5 w-5" /> Info.thejkinteriors@gmail.com
+            </a>
+            <p className="flex items-start gap-4 text-neutral-700">
+              <MapPin className="mt-1 h-5 w-5 flex-shrink-0" />
+              Spellbound Coworking and Office Spaces, HT Road, Sainikpuri, Secunderabad.
+            </p>
+          </div>
+        </motion.div>
 
-              {/* Form Header */}
-              <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">Contact Us</h2>
-                <p className="text-gray-600 mt-1">
-                  Let's discuss your interior design project
-                </p>
-              </div>
-
-              {/* Error or Success Message */}
-              {submitStatus === 'error' && (
-                <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
-                  We received your submission, but there might be an issue with confirmation. Please try again or contact us directly.
-                </div>
-              )}
-              {submitStatus === 'success' && (
-                <div className="mb-4 p-3 bg-green-100 text-green-700 rounded">
-                  Thank you for your message! We'll get back to you soon.
-                </div>
-              )}
-
-              {/* Contact Form */}
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#b08968] focus:border-[#b08968]"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#b08968] focus:border-[#b08968]"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#b08968] focus:border-[#b08968]"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={4}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#b08968] focus:border-[#b08968]"
-                  />
-                </div>
-
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3 px-4 bg-[#b08968] text-white rounded-md hover:bg-[#97745a] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </motion.button>
-              </form>
+        <motion.form
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65, delay: 0.08, ease: "easeOut" }}
+          className="bg-white p-5 shadow-[0_24px_80px_rgba(0,0,0,0.08)] sm:p-8"
+        >
+          {submitStatus === "error" && (
+            <div className="mb-6 border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+              We received your attempt, but confirmation failed. Please try again or contact us directly.
             </div>
-          </motion.div>
-        </div>
+          )}
+          {submitStatus === "success" && (
+            <div className="mb-6 border border-green-200 bg-green-50 p-4 text-sm text-green-700">
+              Thank you. We will get back to you soon.
+            </div>
+          )}
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            <label className="block">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                Name
+              </span>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="mt-3 w-full border border-neutral-300 bg-[#F7F5F2] px-4 py-4 text-neutral-950 outline-none transition-colors focus:border-[#b08968]"
+              />
+            </label>
+
+            <label className="block">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                Phone
+              </span>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                className="mt-3 w-full border border-neutral-300 bg-[#F7F5F2] px-4 py-4 text-neutral-950 outline-none transition-colors focus:border-[#b08968]"
+              />
+            </label>
+          </div>
+
+          <label className="mt-5 block">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+              Email
+            </span>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="mt-3 w-full border border-neutral-300 bg-[#F7F5F2] px-4 py-4 text-neutral-950 outline-none transition-colors focus:border-[#b08968]"
+            />
+          </label>
+
+          <label className="mt-5 block">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+              Project Notes
+            </span>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              rows={6}
+              className="mt-3 w-full resize-none border border-neutral-300 bg-[#F7F5F2] px-4 py-4 text-neutral-950 outline-none transition-colors focus:border-[#b08968]"
+              placeholder="Tell us about your space, timeline, and design goals."
+            />
+          </label>
+
+          <motion.button
+            whileTap={{ scale: 0.99 }}
+            type="submit"
+            disabled={isSubmitting}
+            className="mt-6 flex w-full items-center justify-between bg-neutral-950 px-5 py-4 text-left text-sm font-semibold uppercase tracking-[0.24em] text-white transition-colors hover:bg-[#8a6a50] disabled:cursor-not-allowed disabled:opacity-55"
+          >
+            {isSubmitting ? "Sending" : "Send Inquiry"}
+            <ArrowUpRight className="h-5 w-5" />
+          </motion.button>
+        </motion.form>
+          </div>
+        </motion.section>
       )}
     </AnimatePresence>
   );

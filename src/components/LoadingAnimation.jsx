@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import logo from '../assest/logo.jpg'; // Update path according to your project structure
@@ -20,7 +22,7 @@ const LoadingAnimation = ({ onComplete }) => {
         className="text-center"
       >
         <motion.img 
-          src={logo}
+          src={logo.src}
           alt="JK Interiors"
           className="h-24 w-auto mb-4 mx-auto"
           animate={{ 

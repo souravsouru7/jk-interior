@@ -1,166 +1,226 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Award, Users, Briefcase, Star } from 'lucide-react';
-import SEO from './SEO';
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  Award,
+  Briefcase,
+  Check,
+  Clock,
+  HeartHandshake,
+  ShieldCheck,
+  Sparkles,
+  Users,
+} from "lucide-react";
+import Link from "next/link";
+
+const stats = [
+  { icon: Award, value: "4.5+", label: "years of practice" },
+  { icon: Briefcase, value: "50+", label: "completed projects" },
+  { icon: Users, value: "100%", label: "client-first process" },
+  { icon: ShieldCheck, value: "1 year", label: "warranty support" },
+];
+
+const values = [
+  "Design around real routines",
+  "Keep materials calm and durable",
+  "Resolve storage before styling",
+  "Communicate clearly through execution",
+  "Protect budget with smart priorities",
+  "Finish every detail with discipline",
+];
 
 const About = () => {
-  const stats = [
-    { icon: Award, value: '10+', label: 'Years Experience' },
-    { icon: Users, value: '500+', label: 'Happy Clients' },
-    { icon: Briefcase, value: '750+', label: 'Projects Completed' },
-    { icon: Star, value: '15+', label: 'Design Awards' },
-  ];
-
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.6 }
-  };
-
   return (
-    <>
-      <SEO 
-        title="About JK Interiors - Premier Interior Design Firm in Hyderabad"
-        description="Discover JK Interiors, Hyderabad's premier interior design firm. With 10+ years of experience, 500+ happy clients, and 750+ completed projects, we create innovative and elegant spaces that inspire."
-        keywords="interior design Hyderabad, premier interior design firm, luxury interior design, residential interior design, commercial interior design, JK Interiors about"
-        canonicalUrl="https://www.thejkinteriors.com/about"
-        image="/images/about-og.jpg"
-      />
-      <section id="about" className="py-16 bg-black relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" 
-            style={{
-              backgroundImage: 'radial-gradient(#b08968 1px, transparent 1px)',
-              backgroundSize: '32px 32px'
-            }}
-          />
-        </div>
+    <main className="bg-[#ECECEC] text-neutral-950">
+      <section className="relative min-h-[90vh] overflow-hidden pt-28 text-white">
+        <img
+          src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2200"
+          alt="JK Interiors studio interior"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.76),rgba(0,0,0,0.42)_48%,rgba(0,0,0,0.12)),linear-gradient(180deg,rgba(0,0,0,0.28),rgba(0,0,0,0.22))]" />
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          {/* Header */}
+        <div className="relative z-10 mx-auto flex min-h-[calc(90vh-7rem)] max-w-7xl flex-col justify-end px-5 pb-16 sm:px-6 lg:pb-20">
           <motion.div
-            {...fadeInUp}
-            className="text-center mb-12"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: "easeOut" }}
+            className="max-w-5xl"
           >
-            <motion.h2 
-              className="text-4xl md:text-4xl font-bold text-white mb-3 font-['Playfair_Display']"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              About Us
-            </motion.h2>
-            <motion.div 
-              className="w-20 h-0.5 bg-[#b08968] mx-auto mb-6"
-              initial={{ width: 0 }}
-              whileInView={{ width: 80 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            />
-            <motion.h3 
-              className="text-2xl text-[#b08968] font-medium mb-4 font-['Poppins']"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-            >
-              Designing Experiences, Not Just Spaces
-            </motion.h3>
-          </motion.div>
-
-          {/* Main Content */}
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Side - Text Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="space-y-5"
-            >
-              <p className="text-white/80 text-base leading-relaxed font-['Inter']">
-                JK Interior's is a premier interior design firm in Hyderabad, specializing in innovative and elegant
-                solutions. Our team of expert designers works with you every step of the way to create spaces that
-                inspire.
-              </p>
-              
-              <p className="text-white/80 text-base leading-relaxed font-['Inter']">
-                We believe that great design goes beyond aesthetics. It's about creating functional spaces that
-                reflect your personality and enhance your lifestyle. Our commitment to excellence and attention
-                to detail ensures that every project we undertake exceeds expectations.
-              </p>
-
-              <motion.button
-                whileHover={{ scale: 1.02, backgroundColor: '#96745a' }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400 }}
-                className="px-6 py-3 bg-[#b08968] text-white rounded-lg mt-6 text-sm font-medium shadow-lg hover:shadow-xl"
-              >
-                Learn More About Our Process
-              </motion.button>
-            </motion.div>
-
-            {/* Right Side - Image Grid */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="grid grid-cols-2 gap-3"
-            >
-              {[
-                "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=400",
-                "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=400",
-                "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?q=80&w=400",
-                "https://images.unsplash.com/photo-1616137466211-f939a420be84?q=80&w=400"
-              ].map((src, index) => (
-                <motion.div
-                  key={index}
-                  className={`${index % 2 !== 0 ? 'mt-6' : ''}`}
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <img
-                    src={src}
-                    alt="Interior Design"
-                    className="rounded-lg shadow-lg w-full h-40 object-cover"
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Stats Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
-          >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.08)' }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="text-center p-6 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10"
-              >
-                <motion.div
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.7 }}
-                  className="w-12 h-12 rounded-full bg-[#b08968]/20 flex items-center justify-center mx-auto mb-3"
-                >
-                  <stat.icon className="w-6 h-6 text-[#b08968]" />
-                </motion.div>
-                <h4 className="text-2xl font-bold text-white mb-1 font-['Poppins']">{stat.value}</h4>
-                <p className="text-white/60 text-sm">{stat.label}</p>
-              </motion.div>
-            ))}
+            <p className="text-xs font-semibold uppercase tracking-[0.36em] text-[#d8b99c]">
+              About JK Interiors
+            </p>
+            <h1 className="mt-5 max-w-[11ch] text-[clamp(2.6rem,9vw,9.4rem)] font-semibold leading-[0.86] tracking-tight">
+              Spaces with quiet confidence.
+            </h1>
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-white/76">
+              A Hyderabad-based interior design studio creating practical, elegant, and deeply
+              personal spaces for homes and businesses.
+            </p>
           </motion.div>
         </div>
       </section>
-    </>
+
+      <section className="mx-auto grid max-w-7xl gap-14 px-5 py-24 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20 lg:py-32">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#8a6a50]">
+            Studio Story
+          </p>
+          <h2 className="mt-5 max-w-[12ch] text-[clamp(2.2rem,7vw,6.2rem)] font-semibold leading-[0.9] tracking-tight">
+            Designing experiences, not just rooms.
+          </h2>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65, delay: 0.08, ease: "easeOut" }}
+          className="space-y-8"
+        >
+          <p className="text-2xl font-medium leading-10 tracking-tight text-neutral-950">
+            JK Interiors works with clients who want spaces that feel beautiful, efficient, and
+            natural to use. We combine design sensitivity with site discipline, so the final result
+            is not only photogenic but livable.
+          </p>
+          <p className="max-w-2xl text-base leading-8 text-neutral-600">
+            Our team guides each project from first conversation to final handover, translating your
+            lifestyle, brand, budget, and site conditions into a clear design direction. The work is
+            edited, functional, and warm, with attention to storage, light, materials, and execution.
+          </p>
+        </motion.div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-5 px-5 pb-24 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:pb-32">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+          className="relative min-h-[520px] overflow-hidden bg-neutral-950"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=1800"
+            alt="Premium living room by JK Interiors"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/76 to-transparent p-6 text-white sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/58">
+              Residential / Commercial
+            </p>
+            <h3 className="mt-3 max-w-lg text-3xl font-semibold tracking-tight">
+              Interiors planned for comfort, storage, and a lasting visual language.
+            </h3>
+          </div>
+        </motion.div>
+
+        <div className="grid gap-5">
+          {[
+            "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1000",
+            "https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=1000",
+          ].map((src, index) => (
+            <motion.div
+              key={src}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.65, delay: index * 0.08, ease: "easeOut" }}
+              className="min-h-[250px] overflow-hidden bg-neutral-950"
+            >
+              <img src={src} alt="JK Interiors project detail" className="h-full w-full object-cover" />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-neutral-300 bg-white">
+        <div className="mx-auto grid max-w-7xl gap-px overflow-hidden bg-neutral-300 px-5 py-16 sm:grid-cols-2 sm:px-6 sm:py-24 lg:grid-cols-4 lg:py-32">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.55, delay: index * 0.06, ease: "easeOut" }}
+              className="bg-white p-7"
+            >
+              <stat.icon className="h-6 w-6 text-[#8a6a50]" />
+              <p className="mt-12 text-5xl font-semibold tracking-tight">{stat.value}</p>
+              <p className="mt-3 text-xs font-semibold uppercase tracking-[0.22em] text-neutral-500">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-neutral-950 text-white">
+        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+          >
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.34em] text-[#b08968]">
+              <HeartHandshake className="h-4 w-4" /> Our Standard
+            </p>
+            <h2 className="mt-5 max-w-[12ch] text-[clamp(2.2rem,7vw,6rem)] font-semibold leading-[0.9] tracking-tight">
+              What clients can expect.
+            </h2>
+            <p className="mt-7 max-w-md text-base leading-7 text-white/62">
+              Professional design is a partnership. We keep the process transparent, focused, and
+              grounded in decisions that improve the finished space.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-px overflow-hidden bg-white/12 sm:grid-cols-2">
+            {values.map((value, index) => (
+              <motion.div
+                key={value}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
+                className="bg-neutral-950 p-6"
+              >
+                <Check className="h-5 w-5 text-[#b08968]" />
+                <p className="mt-8 text-xl font-semibold tracking-tight">{value}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#ECECEC]">
+        <div className="mx-auto max-w-7xl px-5 py-20 sm:px-6 lg:py-28">
+          <div className="grid gap-8 border-y border-neutral-300 py-12 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.34em] text-[#8a6a50]">
+                <Sparkles className="h-4 w-4" /> Work With Us
+              </p>
+              <h2 className="mt-5 max-w-3xl text-[clamp(2rem,6vw,5.8rem)] font-semibold leading-[0.92] tracking-tight">
+                Tell us what your space needs to become.
+              </h2>
+            </div>
+            <Link
+              href="/contact"
+              className="inline-flex w-full items-center justify-center gap-3 bg-neutral-950 px-6 py-4 text-sm font-semibold uppercase tracking-[0.24em] text-white transition-colors hover:bg-[#8a6a50] sm:w-auto"
+            >
+              Start A Project <ArrowUpRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 };
 
-export default About; 
+export default About;

@@ -1,120 +1,74 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
+"use client";
+
+import React from "react";
+import { Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import Link from "next/link";
 
 const Footer = () => {
-  const footerAnimation = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
+  const links = [
+    ["Services", "/services"],
+    ["Gallery", "/gallery"],
+    ["Philosophy", "/philosophy"],
+    ["About", "/about"],
+    ["Contact", "/contact"],
+  ];
 
   return (
-    <footer className="bg-[#1a1a1a] text-white py-12 sm:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
-          {/* Company Info */}
-          <motion.div
-            variants={footerAnimation}
-            initial="hidden"
-            whileInView="visible"
-            className="space-y-6"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=60" 
-              alt="JK Interiors" 
-              className="h-14 w-14 object-contain"
-            />
-            <p className="text-gray-400 max-w-xs">
-              Transform your space with our expert interior design services. We bring your vision to life.
+    <footer className="bg-neutral-950 text-white">
+      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:py-20">
+        <div className="grid gap-12 border-b border-white/10 pb-12 lg:grid-cols-[1.2fr_0.8fr_1fr]">
+          <div>
+            <Link href="/" className="text-3xl font-semibold tracking-tight">
+              JK Interiors
+            </Link>
+            <p className="mt-5 max-w-md text-base leading-7 text-white/58">
+              Premium interior design and execution for homes, workplaces, kitchens, furniture,
+              and complete transformations.
             </p>
-          </motion.div>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div
-            variants={footerAnimation}
-            initial="hidden"
-            whileInView="visible"
-            className="space-y-6"
-          >
-            <h3 className="text-lg sm:text-xl font-semibold">Quick Links</h3>
-            <ul className="space-y-4">
-              {['Home', 'Portfolio', 'Factory', 'About', 'Contact'].map((item) => (
-                <li key={item}>
-                  <a 
-                    href={`#${item.toLowerCase()}`}
-                    className="text-gray-400 hover:text-[#b08968] transition-colors"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+          <nav className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm font-medium text-white/62 sm:gap-3">
+            {links.map(([label, href]) => (
+              <Link key={label} href={href} className="transition-colors hover:text-[#b08968]">
+                {label}
+              </Link>
+            ))}
+          </nav>
 
-          {/* Contact Info */}
-          <motion.div
-            variants={footerAnimation}
-            initial="hidden"
-            whileInView="visible"
-            className="space-y-6"
-          >
-            <h3 className="text-lg sm:text-xl font-semibold">Contact Us</h3>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3 text-sm sm:text-base text-gray-400">
-                <Phone size={20} />
-                <span>+91 9063096060</span>
-              </li>
-              <li className="flex items-center gap-3 text-sm sm:text-base text-gray-400">
-                <Mail size={20} />
-                <span>Info.thejkinteriors@gmail.com</span>
-              </li>
-              <li className="flex items-start gap-3 text-sm sm:text-base text-gray-400">
-                <MapPin size={20} className="mt-1 flex-shrink-0" />
-                <span>Spellbound Coworking and Office Spaces, HT Road, Osmania University Teachers Colony, Sainikpuri, Secunderabad, Telangana</span>
-              </li>
-            </ul>
-          </motion.div>
-
-          {/* Social Links */}
-          <motion.div
-            variants={footerAnimation}
-            initial="hidden"
-            whileInView="visible"
-            className="space-y-6"
-          >
-            <h3 className="text-lg sm:text-xl font-semibold">Follow Us</h3>
-            <div className="flex space-x-4">
-              {[
-                { Icon: Instagram, link: 'https://www.instagram.com/the.jkinteriors?igsh=MXZ6YXBlYmppNXNoaA==' },
-                { Icon: Facebook, link: '#' },
-                { Icon: Twitter, link: '#' },
-                { Icon: Linkedin, link: '#' }
-              ].map(({ Icon, link }, index) => (
-                <motion.a
-                  key={index}
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, color: '#b08968' }}
-                  className="text-gray-400 hover:text-[#b08968] transition-colors"
-                >
-                  <Icon size={24} />
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
+          <div className="space-y-4 text-sm text-white/62">
+            <a href="tel:+919063096060" className="flex items-center gap-3 transition-colors hover:text-[#b08968]">
+              <Phone className="h-4 w-4" /> +91 9063096060
+            </a>
+            <a
+              href="mailto:Info.thejkinteriors@gmail.com"
+              className="flex items-center gap-3 transition-colors hover:text-[#b08968]"
+            >
+              <Mail className="h-4 w-4" /> Info.thejkinteriors@gmail.com
+            </a>
+            <p className="flex items-start gap-3">
+              <MapPin className="mt-1 h-4 w-4 flex-shrink-0" />
+              Spellbound Coworking and Office Spaces, HT Road, Sainikpuri, Secunderabad.
+            </p>
+          </div>
         </div>
 
-        <motion.div
-          variants={footerAnimation}
-          initial="hidden"
-          whileInView="visible"
-          className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400"
-        >
-          <p className="text-xs sm:text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} JK Interiors. All rights reserved.
-          </p>
-        </motion.div>
+        <div className="flex flex-col gap-6 pt-8 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {new Date().getFullYear()} JK Interiors. All rights reserved.</p>
+          <div className="flex gap-4">
+            <a
+              href="https://www.instagram.com/the.jkinteriors?igsh=MXZ6YXBlYmppNXNoaA=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-[#b08968]"
+              aria-label="Instagram"
+            >
+              <Instagram className="h-5 w-5" />
+            </a>
+            <a href="#" className="transition-colors hover:text-[#b08968]" aria-label="LinkedIn">
+              <Linkedin className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );

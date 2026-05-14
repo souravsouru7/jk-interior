@@ -1,264 +1,228 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Heart, Users, Layout, Clock, Leaf, Eye, Brush, ArrowRight } from 'lucide-react';
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  Brush,
+  Check,
+  Clock,
+  Eye,
+  Heart,
+  Layers3,
+  Leaf,
+  Ruler,
+  Users,
+} from "lucide-react";
+import Link from "next/link";
+
+const principles = [
+  {
+    icon: Users,
+    title: "Client-Centered",
+    text: "The brief begins with how you live, work, host, rest, cook, store, and move through the space.",
+  },
+  {
+    icon: Ruler,
+    title: "Function First",
+    text: "Beauty works harder when circulation, storage, lighting, and ergonomics are resolved early.",
+  },
+  {
+    icon: Clock,
+    title: "Timeless Over Trend",
+    text: "We use trends carefully, favoring proportion, material honesty, and details that age with dignity.",
+  },
+  {
+    icon: Leaf,
+    title: "Responsible Choices",
+    text: "Durable materials, efficient lighting, and considered sourcing help the space perform for years.",
+  },
+  {
+    icon: Eye,
+    title: "Detail Discipline",
+    text: "Edges, junctions, handles, light temperature, and scale are treated as design decisions.",
+  },
+  {
+    icon: Brush,
+    title: "Creative Collaboration",
+    text: "We guide the project with design expertise while keeping your preferences visible in every stage.",
+  },
+];
+
+const values = [
+  "Light before decoration",
+  "Storage without visual noise",
+  "Material palettes with restraint",
+  "Furniture scaled to the room",
+  "Execution guided by drawings",
+  "Comfort that survives daily use",
+];
 
 const Philosophy = () => {
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
-
-  const philosophyPoints = [
-    {
-      icon: Users,
-      title: "Client-Centered Approach",
-      description: "Your vision is at the heart of everything we do. We take the time to understand your preferences, lifestyle, and requirements, ensuring every design decision reflects your personality."
-    },
-    {
-      icon: Layout,
-      title: "Balance of Aesthetics and Functionality",
-      description: "We don't just create beautiful spaces; we design environments that work for you. From ergonomic layouts to thoughtful storage solutions, our designs are as practical as they are stunning."
-    },
-    {
-      icon: Clock,
-      title: "Emphasis on Timeless Design",
-      description: "While trends come and go, we focus on creating spaces that stand the test of time. By blending classic elements with modern touches, we craft designs that remain elegant and relevant."
-    },
-    {
-      icon: Leaf,
-      title: "Sustainability and Innovation",
-      description: "We are committed to sustainable practices, incorporating eco-friendly materials and energy-efficient solutions wherever possible. Innovation drives us to explore new ideas, technologies, and techniques."
-    },
-    {
-      icon: Eye,
-      title: "Attention to Detail",
-      description: "From selecting the perfect color palette to ensuring flawless execution, we pay meticulous attention to every detail. It's these finishing touches that elevate our designs from ordinary to extraordinary."
-    },
-    {
-      icon: Brush,
-      title: "Collaboration and Creativity",
-      description: "Design is a collaborative process. We work closely with our clients, involving them at every stage to ensure their vision is brought to life while adding our creative expertise to enhance it."
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-black">
-      {/* Enhanced Hero Section */}
-      <section className="relative h-screen overflow-hidden">
-        <motion.div
-          style={{ opacity, scale }}
-          className="absolute inset-0"
-        >
+    <main className="bg-[#ECECEC] text-neutral-950">
+      <section className="relative min-h-[90vh] overflow-hidden pt-28 text-white">
+        <img
+          src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2200"
+          alt="Calm luxury interior"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.72),rgba(0,0,0,0.38)_50%,rgba(0,0,0,0.12)),linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.2))]" />
+
+        <div className="relative z-10 mx-auto flex min-h-[calc(90vh-7rem)] max-w-7xl flex-col justify-end px-5 pb-16 sm:px-6 lg:pb-20">
           <motion.div
-            animate={{ 
-              scale: [1, 1.1, 1],
-              filter: ["brightness(1)", "brightness(1.2)", "brightness(1)"]
-            }}
-            transition={{ 
-              duration: 20,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-            className="w-full h-full"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: "easeOut" }}
+            className="max-w-5xl"
           >
-            <img
-              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000"
-              alt="Interior Design"
-              className="w-full h-full object-cover"
-            />
+            <p className="text-xs font-semibold uppercase tracking-[0.36em] text-[#d8b99c]">
+              Design Philosophy
+            </p>
+            <h1 className="mt-5 max-w-[11ch] text-[clamp(4rem,10vw,9.4rem)] font-semibold leading-[0.86] tracking-tight">
+              Purpose before polish.
+            </h1>
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-white/76">
+              We design interiors that look composed because they work clearly. Function, light,
+              material, and proportion lead every decision.
+            </p>
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black" />
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:py-32">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#8a6a50]">
+            Studio Manifesto
+          </p>
+          <h2 className="mt-5 max-w-[12ch] text-[clamp(3rem,7vw,6.4rem)] font-semibold leading-[0.9] tracking-tight">
+            Quiet spaces, exact decisions.
+          </h2>
         </motion.div>
 
-        <div className="relative z-10 h-full flex items-center justify-center">
-          <div className="max-w-7xl mx-auto px-6 w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-center space-y-8"
-            >
-              <motion.h1 
-                className="text-7xl md:text-8xl font-bold"
-                animate={{ 
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                transition={{ duration: 5, repeat: Infinity }}
-                style={{
-                  backgroundImage: "linear-gradient(90deg, #ffffff, #b08968, #ffffff)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
-                  backgroundSize: "200% 100%",
-                }}
-              >
-                Our Design Philosophy
-              </motion.h1>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 1.5, delay: 1 }}
-                className="h-0.5 bg-gradient-to-r from-transparent via-[#b08968] to-transparent mx-auto"
-              />
-              <motion.p 
-                className="text-2xl text-white/80 max-w-3xl mx-auto"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2 }}
-              >
-                Where Function Meets Aesthetics
-              </motion.p>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65, delay: 0.08, ease: "easeOut" }}
+          className="space-y-8"
         >
-          <motion.p
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="text-white/60 text-sm"
-          >
-            Scroll to explore
-          </motion.p>
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center"
-          >
-            <motion.div
-              animate={{ y: [0, 15, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1.5 h-1.5 bg-white/60 rounded-full mt-2"
-            />
-          </motion.div>
+          <p className="text-2xl font-medium leading-10 tracking-tight text-neutral-950">
+            A beautiful room is not built from decoration alone. It comes from decisions that solve
+            daily friction: where things live, how light moves, how furniture supports the body, and
+            how materials feel after years of use.
+          </p>
+          <p className="max-w-2xl text-base leading-8 text-neutral-600">
+            Our role is to translate personal taste into a complete spatial system. We keep the work
+            calm, edited, and practical, then layer warmth through finishes, furniture, styling, and
+            detail.
+          </p>
         </motion.div>
       </section>
 
-      {/* Enhanced Main Content */}
-      <section className="py-20 px-6 relative">
-        {/* Animated Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <motion.div
-            animate={{
-              backgroundPosition: ['0% 0%', '100% 100%'],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "linear"
-            }}
-            className="w-full h-full"
-            style={{
-              backgroundImage: 'radial-gradient(circle at center, #b08968 1px, transparent 1px)',
-              backgroundSize: '50px 50px',
-            }}
-          />
-        </div>
+      <section className="border-y border-neutral-300 bg-white">
+        <div className="mx-auto max-w-7xl px-5 py-24 sm:px-6 lg:py-32">
+          <div className="mb-12 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#8a6a50]">
+                Principles
+              </p>
+              <h2 className="mt-4 text-[clamp(2.8rem,6vw,5.8rem)] font-semibold leading-[0.92] tracking-tight">
+                What guides the work.
+              </h2>
+            </div>
+            <p className="max-w-xl text-base leading-8 text-neutral-600">
+              These principles keep every project grounded, whether we are designing one room or an
+              entire home.
+            </p>
+          </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid gap-px overflow-hidden border border-neutral-300 bg-neutral-300 md:grid-cols-2 lg:grid-cols-3">
+            {principles.map((principle, index) => (
+              <motion.article
+                key={principle.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.55, delay: index * 0.06, ease: "easeOut" }}
+                className="bg-white p-7 transition-colors hover:bg-[#ECECEC] sm:p-8"
+              >
+                <div className="flex h-12 w-12 items-center justify-center border border-neutral-300 bg-[#ECECEC] text-[#8a6a50]">
+                  <principle.icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-10 text-2xl font-semibold tracking-tight">{principle.title}</h3>
+                <p className="mt-4 text-base leading-7 text-neutral-600">{principle.text}</p>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-neutral-950 text-white">
+        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-6 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:py-32">
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="text-center mb-20"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
           >
-            <motion.p 
-              className="text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed"
-              initial={{ y: 50 }}
-              whileInView={{ y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              We blend creativity, innovation, and practicality to design interiors that are both beautiful and
-              functional. Each project is crafted to suit the unique needs and aspirations of our clients.
-            </motion.p>
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.34em] text-[#b08968]">
+              <Heart className="h-4 w-4" /> Design Lens
+            </p>
+            <h2 className="mt-5 max-w-[12ch] text-[clamp(3rem,7vw,6rem)] font-semibold leading-[0.9] tracking-tight">
+              Less noise. More intention.
+            </h2>
+            <p className="mt-7 max-w-md text-base leading-7 text-white/62">
+              We edit constantly. The goal is not to add more, but to make every visible element
+              earn its place.
+            </p>
           </motion.div>
 
-          {/* Enhanced Philosophy Points Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {philosophyPoints.map((point, index) => (
+          <div className="grid gap-px overflow-hidden bg-white/12 sm:grid-cols-2">
+            {values.map((value, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
+                key={value}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                whileHover={{ 
-                  y: -20,
-                  boxShadow: "0 20px 40px -20px rgba(176, 137, 104, 0.5)"
-                }}
-                className="group bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:border-[#b08968]/30 transition-all duration-500"
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
+                className="bg-neutral-950 p-6"
               >
-                <motion.div
-                  whileHover={{ rotate: 360, scale: 1.1 }}
-                  transition={{ duration: 0.7, type: "spring" }}
-                  className="w-20 h-20 rounded-full bg-gradient-to-br from-[#b08968] to-[#b08968]/50 flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-[#b08968]/20"
-                >
-                  <point.icon className="w-10 h-10 text-white" />
-                </motion.div>
-                
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-[#b08968] transition-colors">
-                  {point.title}
-                </h3>
-                
-                <p className="text-white/70 leading-relaxed group-hover:text-white/90 transition-colors">
-                  {point.description}
-                </p>
-
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileHover={{ x: 0, opacity: 1 }}
-                  className="mt-6 flex items-center gap-2 text-[#b08968]"
-                >
-                  <span>Learn more</span>
-                  <ArrowRight className="w-4 h-4" />
-                </motion.div>
+                <Check className="h-5 w-5 text-[#b08968]" />
+                <p className="mt-8 text-xl font-semibold tracking-tight">{value}</p>
               </motion.div>
             ))}
           </div>
-
-          {/* Enhanced Call to Action */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-center mt-20"
-          >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              whileInView={{ scale: 1 }}
-              className="bg-gradient-to-r from-[#b08968]/20 via-[#b08968]/10 to-[#b08968]/20 p-12 rounded-2xl backdrop-blur-sm"
-            >
-              <h3 className="text-3xl font-bold text-white mb-6">
-                Ready to Transform Your Space?
-              </h3>
-              <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-                At JK Interior Services, we don't just design spaces; we create experiences that enrich lives. 
-                Our philosophy is simple: design with purpose, beauty, and heart.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 bg-gradient-to-r from-[#b08968] to-[#b08968]/80 text-white rounded-full flex items-center gap-2 mx-auto group"
-              >
-                Let's bring your dream to life
-                <motion.div
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
-              </motion.button>
-            </motion.div>
-          </motion.div>
         </div>
       </section>
-    </div>
+
+      <section className="bg-[#ECECEC]">
+        <div className="mx-auto max-w-7xl px-5 py-20 sm:px-6 lg:py-28">
+          <div className="grid gap-8 border-y border-neutral-300 py-12 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.34em] text-[#8a6a50]">
+                <Layers3 className="h-4 w-4" /> Begin With Clarity
+              </p>
+              <h2 className="mt-5 max-w-3xl text-[clamp(2.6rem,6vw,5.8rem)] font-semibold leading-[0.92] tracking-tight">
+                Let us design around the way you live.
+              </h2>
+            </div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-3 bg-neutral-950 px-6 py-4 text-sm font-semibold uppercase tracking-[0.24em] text-white transition-colors hover:bg-[#8a6a50]"
+            >
+              Start A Project <ArrowUpRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 };
 
-export default Philosophy; 
+export default Philosophy;

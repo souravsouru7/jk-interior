@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
+"use client";
+
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronRight } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import logo from '../assest/logo.jpg';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   const navItems = [
     { name: 'Home', path: '/' },
@@ -21,30 +28,56 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (ticking.current) return;
+
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const isMovingDown = currentY > lastScrollY.current + 8;
+        const isMovingUp = currentY < lastScrollY.current - 8;
+
+        setIsScrolled(currentY > 50);
+
+        if (!isOpen && currentY > 90 && isMovingDown) {
+          setIsHidden(true);
+        }
+
+        if (isMovingUp || currentY < 40) {
+          setIsHidden(false);
+        }
+
+        lastScrollY.current = currentY;
+        ticking.current = false;
+      });
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isOpen]);
 
   return (
     <motion.header
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      animate={{ y: isHidden ? -110 : 0 }}
+      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-black/80 backdrop-blur-md py-2' : 'bg-transparent py-4'
+        isHome
+          ? 'bg-transparent py-4'
+          : isScrolled
+            ? 'bg-black/80 backdrop-blur-md py-2'
+            : 'bg-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center">
-          <Link to="/">
+          <Link href="/">
             <motion.div
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
               className="flex items-center"
             >
               <img 
-                src={logo} 
+                src={logo.src} 
                 alt="JK Interiors" 
                 className="h-10 w-auto object-contain rounded-md" 
                 style={{
@@ -54,7 +87,7 @@ const Header = () => {
               />
               <motion.span 
                 className={`ml-2 font-semibold text-lg sm:text-xl ${
-                  isScrolled ? 'text-white' : 'text-[#b08968]'
+                  isHome || isScrolled ? 'text-white drop-shadow-md' : 'text-[#b08968]'
                 }`}
               >
                 JK Interiors
@@ -64,10 +97,10 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <Link key={item.name} to={item.path}>
+              <Link key={item.name} href={item.path}>
                 <motion.span
-                  className={`text-white hover:text-[#b08968] transition-colors text-lg relative group ${
-                    location.pathname === item.path ? 'text-[#b08968]' : ''
+                  className={`text-white drop-shadow-md hover:text-[#b08968] transition-colors text-lg relative group ${
+                    pathname === item.path ? 'text-[#b08968]' : ''
                   }`}
                   whileHover={{ scale: 1.1 }}
                 >
@@ -111,7 +144,7 @@ const Header = () => {
                 {navItems.map((item, index) => (
                   <Link 
                     key={item.name} 
-                    to={item.path}
+                    href={item.path}
                     onClick={() => setIsOpen(false)}
                   >
                     <motion.div
@@ -119,7 +152,7 @@ const Header = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
                       className={`py-4 border-b border-white/10 ${
-                        location.pathname === item.path 
+                        pathname === item.path 
                           ? 'text-[#b08968]' 
                           : 'text-white'
                       }`}

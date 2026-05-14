@@ -1,6 +1,7 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation } from "react-router-dom";
 import LoadingAnimation from "./LoadingAnimation";
 import Hero from "./Hero";
 import Features from "./Features";
@@ -12,11 +13,10 @@ const JKInteriors = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
-  const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -50,16 +50,16 @@ const JKInteriors = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-black overflow-hidden">
+    <div className="relative min-h-screen bg-black">
       <audio
         ref={audioRef}
-        src="/music/background.mp3"
+        src="/music/Interior Design Animation.mp3"
         loop
       />
 
       <button
         onClick={toggleMusic}
-        className="fixed bottom-4 right-4 z-50 bg-white/10 backdrop-blur-sm p-2 rounded-full hover:bg-white/20"
+        className="fixed bottom-5 right-5 z-50 bg-white/10 backdrop-blur-sm p-3 rounded-full hover:bg-white/20 touch-manipulation"
       >
         {isPlaying ? "🔊" : "▶️"}
       </button>

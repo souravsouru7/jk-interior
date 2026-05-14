@@ -1,10 +1,13 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, MousePointer } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Hero = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <section className="min-h-screen relative flex items-center justify-center py-20">
@@ -76,7 +79,7 @@ const Hero = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate('/gallery')}
+                  onClick={() => router.push('/gallery')}
                   className="px-6 py-3 sm:px-8 sm:py-4 bg-[#b08968] text-white rounded-full text-sm sm:text-base flex items-center gap-2 group"
                 >
                   View Portfolio
@@ -91,7 +94,7 @@ const Hero = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate('/contact')}
+                  onClick={() => router.push('/contact')}
                   className="px-8 py-4 border-2 border-white text-white rounded-full hover:bg-white hover:text-black transition-all duration-300"
                 >
                   Contact Us
@@ -99,7 +102,7 @@ const Hero = () => {
               </motion.div>
 
               {/* Stats */}
-              <motion.div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-8 pt-8">
+              <motion.div className="grid grid-cols-3 gap-2 sm:gap-8 pt-8">
                 {[
                   { number: "02+", label: "Years Experience" },
                   { number: "250+", label: "Projects Completed" },
@@ -108,11 +111,11 @@ const Hero = () => {
                   <div key={index} className="text-center">
                     <motion.div
                       whileHover={{ scale: 1.1 }}
-                      className="text-3xl font-bold text-[#b08968]"
+                      className="text-xl sm:text-3xl font-bold text-[#b08968]"
                     >
                       {stat.number}
                     </motion.div>
-                    <div className="text-white/80 text-sm">{stat.label}</div>
+                    <div className="text-white/80 text-[10px] sm:text-sm">{stat.label}</div>
                   </div>
                 ))}
               </motion.div>
@@ -127,7 +130,7 @@ const Hero = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="grid grid-cols-2 gap-6"
             >
-              <Link to="/services#residential">
+              <Link href="/services#residential">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -154,7 +157,7 @@ const Hero = () => {
                 </motion.div>
               </Link>
 
-              <Link to="/services#commercial">
+              <Link href="/services#commercial">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -180,7 +183,7 @@ const Hero = () => {
                 </motion.div>
               </Link>
 
-              <Link to="/services#modular-kitchen">
+              <Link href="/services#modular-kitchen">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -206,7 +209,7 @@ const Hero = () => {
                 </motion.div>
               </Link>
 
-              <Link to="/services#interior-styling">
+              <Link href="/services#interior-styling">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
